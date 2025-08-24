@@ -14,7 +14,6 @@ function NewJournal() {
       console.log("nothing for journalName");
       return;
     }
-    console.log(`Sent ${journalName} to backend`);
   }
 
   return (
