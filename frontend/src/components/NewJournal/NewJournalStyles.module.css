@@ -1,0 +1,29 @@
+.journalInput {
+  margin-top: 20px;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 8px 15px;
+  background-color: #f5f5dc;
+}
+
+.journalInput:focus {
+  border: 1px solid black;
+  background-color: #c2b280;
+}
+
+.createButton {
+  margin-left: 20px;
+  border-radius: 8px;
+  border: none;
+  padding: 10px 20px;
+  background-color: #efcca2;
+  transition: background-color 0.3s;
+}
+
+.createButton:hover {
+  background-color: #ceac83;
+}
+
+.createButton:active {
+  background-color: #c29e71;
+}

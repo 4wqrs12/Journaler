@@ -1,0 +1,11 @@
+.btn {
+  cursor: pointer;
+}
+
+.btn:disabled {
+  cursor: auto;
+}
+
+body {
+  background-color: #fdd9b5;
+}

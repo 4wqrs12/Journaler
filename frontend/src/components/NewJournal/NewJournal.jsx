@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./NewJournalStyles.module.css";
 
 function NewJournal() {
   const [journalName, setJournalName] = useState("");
@@ -17,16 +18,19 @@ function NewJournal() {
   }
 
   return (
-    <div>
+    <div className={`${styles.createContainer}`}>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Name..."
           value={journalName}
           onChange={handleNameChange}
+          className={`${styles.journalInput}`}
         />
         {journalName && (
-          <button type="submit">Create Journal: "{journalName}"</button>
+          <button className={`btn ${styles.createButton}`} type="submit">
+            Create Journal: "{journalName}"
+          </button>
         )}
       </form>
     </div>

@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar/Navbar";
-import NewJournalRoute from "./components/routes/NewJournalRoute";
+import NewJournalRoute from "./components/routes/NewJournalRoute/NewJournalRoute";
 import EditJournalRoute from "./components/routes/EditJournalRoute";
 import Home from "./components/routes/Home";
 import { Routes, Route } from "react-router-dom";

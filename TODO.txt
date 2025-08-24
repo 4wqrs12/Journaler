@@ -5,3 +5,23 @@
 [] Complete and style most minimal working edit journal (journals) frontend route
 [] Complete backend for modifying journal
 [] Implement dynamic route for editing a journal, or just create a full screen modal
+
+
+Use these hex codes for theming the site:
+Tan: #D2B48C
+Light Tan: #ECDEC9
+Tan Brown: #AB7E4C
+Dark Tan: #918151
+Buff: #F0DC82
+Sand: #C2B280
+Sandy Tan: #FDD9B5
+Tuscan Tan: #A67B5B
+Wheat: #F5DEB3
+Windsor Tan: #AE6838
+Almond: #EFDECD
+Ashamed: #F3EBAD
+Baja White: #FFFAD2
+Banner Gold: #A28557
+Beige: #F5F5DC
+Beige Brown: #AB814F
+Biscut: #EFCCA2
