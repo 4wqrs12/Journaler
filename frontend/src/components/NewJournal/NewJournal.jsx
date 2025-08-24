@@ -8,11 +8,26 @@ function NewJournal() {
     setJournalName(e.target.value);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!journalName) {
-      console.log("nothing for journalName");
       return;
+    }
+    try {
+      const res = await fetch("http://localhost:5000/api/create-journal", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ journalName }),
+      });
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`);
+      }
+      const json = await res.json();
+      console.log(json);
+    } catch (e) {
+      console.error(`Error: ${e}`);
     }
   }
 
