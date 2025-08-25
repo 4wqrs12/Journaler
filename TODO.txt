@@ -1,7 +1,7 @@
 [✅] Create navbar and routes
 [✅] Complete and style most minimal working new journal frontend route
+[✅] Complete backend for creating new journal
 
-[] Complete backend for creating new journal
 [] Complete and style most minimal working edit journal (journals) frontend route
 [] Complete backend for modifying journal
 [] Implement dynamic route for editing a journal, or just create a full screen modal
