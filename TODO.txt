@@ -8,6 +8,7 @@
 [] In /new route in frontend after clicking the button to create a new journal, add a self-dismissing message showing the "message" from the backend jsonify
 [] Use flex styling display for /new frontend route
 [] Search box for searching journals in /edit frontend route
+[] Add a button to toggle the navbar for mobile devices
 
 Use these hex codes for theming the site:
 Tan: #D2B48C
