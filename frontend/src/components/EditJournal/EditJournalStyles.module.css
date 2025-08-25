@@ -3,3 +3,19 @@
   justify-content: flex-start;
   gap: 10px;
 }
+
+.journalButton {
+  background-color: #f3ebad;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.journalButton:hover {
+  background-color: #d1c989;
+}
+
+.journalButton:active {
+  background-color: #d1c359;
+}
