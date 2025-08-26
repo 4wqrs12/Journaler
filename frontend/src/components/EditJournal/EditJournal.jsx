@@ -5,8 +5,6 @@ import Journal from "./Journal";
 function EditJournal() {
   const [journals, setJournals] = useState([]);
 
-  // fetched journals using async/await function and use that function in useEffect
-
   async function fetchJournals() {
     try {
       const res = await fetch("http://localhost:5000/api/get-journals");
