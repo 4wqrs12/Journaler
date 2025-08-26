@@ -10,7 +10,7 @@ function EditJournal() {
   return (
     <div className={`${styles.editJournal}`}>
       {journals.map((v, i) => (
-        <Journal name={v} key={i} />
+        <Journal journalName={v} key={i} />
       ))}
     </div>
   );

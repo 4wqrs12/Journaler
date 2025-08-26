@@ -1,9 +1,9 @@
 import styles from "./EditJournalStyles.module.css";
 
-function Journal({ name }) {
+function Journal({ journalName }) {
   return (
     <div className={`${styles.journalContainer}`}>
-      <button className={`btn ${styles.journalButton}`}>{name}</button>
+      <button className={`btn ${styles.journalButton}`}>{journalName}</button>
     </div>
   );
 }
