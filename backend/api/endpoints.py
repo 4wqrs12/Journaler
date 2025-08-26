@@ -22,3 +22,17 @@ def create_journal():
     
     except Exception as e:
         return jsonify({"success": False, "message": "An error has occured", "data": str(e)}), 500
+    
+
+@endpoints.route("/api/get-journals")
+def get_journals():
+    try:
+        if collection.count_documents({}) == 0:
+            return jsonify({"success": False, "message": "No journals found", "data": []})
+        
+        journals = [doc for doc in collection.find({}, {"_id": False})]
+        print(journals)
+        return jsonify({"success": True, "message": "Journals retrieved successfully", "data": journals})
+    
+    except Exception as e:
+        return jsonify({"success": False, "message": "An error has occured", "data": str(e)}), 500
