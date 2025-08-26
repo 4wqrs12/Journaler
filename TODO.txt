@@ -2,12 +2,12 @@
 [✅] Complete and style most minimal working new journal frontend route
 [✅] Complete backend for creating new journal
 [✅] Complete and style most minimal working edit journal (journals) frontend route
+[✅] Implement dynamic route for editing a journal, or just create a full screen modal
 
-[] Implement dynamic route for editing a journal, or just create a full screen modal
 [] Complete backend for modifying journal
 [] In /new route in frontend after clicking the button to create a new journal, add a self-dismissing message showing the "message" from the backend jsonify
 [] Use flex styling display for /new frontend route
-[] Search box for searching journals in /edit frontend route
+[] Search box for searching journals in /edit frontend route, use flexbox to put search bar right of "Edit your journals here" h1 tag in /edit frontend route
 [] Add a button to toggle the navbar for mobile devices
 
 Use these hex codes for theming the site:

@@ -31,7 +31,6 @@ def get_journals():
             return jsonify({"success": False, "message": "No journals found", "data": []})
         
         journals = [doc for doc in collection.find({}, {"_id": False})]
-        print(journals)
         return jsonify({"success": True, "message": "Journals retrieved successfully", "data": journals})
     
     except Exception as e:

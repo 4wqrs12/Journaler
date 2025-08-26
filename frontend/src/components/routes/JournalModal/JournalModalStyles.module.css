@@ -1,0 +1,77 @@
+.modalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f0dc82;
+  z-index: 9999; /* ensures modal is on top */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.journalName {
+  text-align: center;
+}
+
+.journalTextArea {
+  resize: none;
+  background-color: #f0dc82;
+  border: none;
+  transition: border 0.3s;
+}
+
+.journalTextArea:focus {
+  outline: none;
+  border: 5px solid #ab7e4c;
+  border-radius: 8px;
+}
+
+.modalControls {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.saveButton {
+  background-color: #c2b280;
+  border: groove;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding: 20px 20px;
+  box-shadow: 0px 5px 2px 0px rgba(0, 0, 0, 0.75);
+  transition: background-color 0.3s;
+}
+
+.saveButton:hover {
+  background-color: #a79768;
+}
+
+.saveButton:active {
+  transform: translateY(5px);
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+}
+
+.closeButton {
+  background-color: #ae6838;
+  border: groove;
+  border-radius: 8px;
+  padding: 20px 20px;
+  box-shadow: 0px 5px 2px 0px rgba(0, 0, 0, 0.75);
+  transition: background-color 0.3s;
+}
+
+.closeButton:hover {
+  background-color: #9b5627;
+}
+
+.closeButton:active {
+  transform: translateY(3px);
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+}
