@@ -1,18 +1,8 @@
 import styles from "./JournalModalStyles.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function JournalModal({ journalName, displayFunction }) {
   const [journalText, setJournalText] = useState("");
-
-  // fetch journalText from dynamic backned endpoint using journalName as param
-
-  function handleChange(e) {
-    setJournalText(e.target.value);
-  }
-
-  function closeModal() {
-    displayFunction(false);
-  }
 
   return (
     <div className={`${styles.modalContainer}`}>
@@ -21,13 +11,14 @@ function JournalModal({ journalName, displayFunction }) {
         <textarea
           className={`${styles.journalTextArea}`}
           value={journalText}
-          onChange={handleChange}
           cols={200}
           rows={50}
           placeholder="Start writing your journal here..."
         />
         <div className={`${styles.modalControls}`}>
-          <button className={`btn ${styles.saveButton}`}>Save</button>
+          <button onClick={saveText} className={`btn ${styles.saveButton}`}>
+            Save
+          </button>
 
           <button className={`btn ${styles.closeButton}`} onClick={closeModal}>
             Close
