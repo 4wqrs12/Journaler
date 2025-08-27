@@ -17,7 +17,7 @@ def create_journal():
         if collection.find_one({"journalName": journal_name}):
             return jsonify({"success": False, "message": f"Another journal already has the name {journal_name}", "data": data})
         
-        collection.insert_one({"journalName": journal_name, "journaText": ""})
+        collection.insert_one({"journalName": journal_name, "journalText": ""})
         return jsonify({"success": True, "message": f"Journal {journal_name} created!", "data": data})
     
     except Exception as e:
@@ -35,3 +35,13 @@ def get_journals():
     
     except Exception as e:
         return jsonify({"success": False, "message": "An error has occured", "data": str(e)}), 500
+
+
+@endpoints.route("/api/get-text/<string:journal_name>")
+def get_text(journal_name):
+    doc = collection.find_one({"journalName": journal_name}, {"_id": False})
+    
+    if not doc:
+        return jsonify({"success": False, "message": f"Journal {journal_name} does not exist!", "data": doc})
+    
+    return jsonify({"success": True, "message": f"Journal {journal_name} data fetched!", "data": doc})
