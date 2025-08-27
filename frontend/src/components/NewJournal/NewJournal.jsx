@@ -1,8 +1,11 @@
 import { useState } from "react";
 import styles from "./NewJournalStyles.module.css";
+import TimedMessage from "./TimedMessage";
 
 function NewJournal() {
   const [journalName, setJournalName] = useState("");
+  const [message, setMessage] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
 
   function handleNameChange(e) {
     setJournalName(e.target.value);
@@ -25,7 +28,9 @@ function NewJournal() {
         throw new Error(`Server error: ${res.status}`);
       }
       const json = await res.json();
-      console.log(json);
+      setMessage(json.message);
+      setIsVisible(true);
+      setTimeout(() => setIsVisible(false), 3000);
     } catch (e) {
       console.error(`Error: ${e}`);
     }
@@ -46,6 +51,8 @@ function NewJournal() {
             Create Journal: "{journalName}"
           </button>
         )}
+
+        <TimedMessage visible={isVisible} text={message} />
       </form>
     </div>
   );

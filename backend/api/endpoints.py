@@ -18,7 +18,7 @@ def create_journal():
             return jsonify({"success": False, "message": f"Another journal already has the name {journal_name}", "data": data})
         
         collection.insert_one({"journalName": journal_name, "journalText": ""})
-        return jsonify({"success": True, "message": f"Journal {journal_name} created!", "data": data})
+        return jsonify({"success": True, "message": f"Journal \"{journal_name}\" created!", "data": data})
     
     except Exception as e:
         return jsonify({"success": False, "message": "An error has occured", "data": str(e)}), 500
