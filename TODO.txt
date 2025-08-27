@@ -13,6 +13,7 @@
 [] Add auth and accounts
 [] Add status codes in backend
 [] Clear textbox after creating journal in /new frontend route
+[] In JournalModal.jsx, make a seperate component for close and save buttons
 
 Use these hex codes for theming the site:
 Tan: #D2B48C
