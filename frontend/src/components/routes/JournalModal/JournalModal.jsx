@@ -18,7 +18,6 @@ function JournalModal({ journalName, displayFunction }) {
       }
       const json = await res.json();
       setJournalText(json.data.journalText);
-      console.log(json.data.journalText);
     } catch (e) {
       console.error(`Error: ${e}`);
     }
@@ -28,6 +27,34 @@ function JournalModal({ journalName, displayFunction }) {
     fetchText();
   }, []);
 
+  async function saveText() {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/save-text/${journalName}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            journalText: journalText,
+          }),
+        }
+      );
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`);
+      }
+      const json = await res.json();
+      console.log(`Save text: ${json.message}`);
+    } catch (e) {
+      console.error(`Error: ${e}`);
+    }
+  }
+
+  function handleTextChange(e) {
+    setJournalText(e.target.value);
+  }
+
   return (
     <div className={`${styles.modalContainer}`}>
       <div className={`${styles.modalContent}`}>
@@ -35,14 +62,25 @@ function JournalModal({ journalName, displayFunction }) {
         <textarea
           className={`${styles.journalTextArea}`}
           value={journalText}
+          onChange={handleTextChange}
           cols={200}
           rows={50}
           placeholder="Start writing your journal here..."
         />
         <div className={`${styles.modalControls}`}>
-          <button className={`btn ${styles.saveButton}`}>Save</button>
+          <button
+            title="Save your changes"
+            className={`btn ${styles.saveButton}`}
+            onClick={saveText}
+          >
+            Save
+          </button>
 
-          <button className={`btn ${styles.closeButton}`} onClick={closeModal}>
+          <button
+            title="This will discard any unsaved changes"
+            className={`btn ${styles.closeButton}`}
+            onClick={closeModal}
+          >
             Close
           </button>
         </div>

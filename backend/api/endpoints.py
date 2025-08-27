@@ -39,9 +39,30 @@ def get_journals():
 
 @endpoints.route("/api/get-text/<string:journal_name>")
 def get_text(journal_name):
-    doc = collection.find_one({"journalName": journal_name}, {"_id": False})
+    try:
+        doc = collection.find_one({"journalName": journal_name}, {"_id": False})
+
+        if not doc:
+            return jsonify({"success": False, "message": f"Journal {journal_name} does not exist!", "data": doc})
+        
+        return jsonify({"success": True, "message": f"Journal {journal_name} data fetched!", "data": doc})
+    except Exception as e:
+        return jsonify({"success": False, "message": "An error has occured", "data": str(e)}), 500
+
+
+@endpoints.route("/api/save-text/<string:name>", methods=["POST"])
+def save_text(name):
+    data = request.get_json()
+    journal_text = data.get("journalText")
+    doc = collection.find_one({"journalName": name}, {"_id": False})
+
+    if not collection.find_one({"journalName": name}):
+        return jsonify({"success": False, "message": f"Journal {name} was not found!", "data": data})
     
-    if not doc:
-        return jsonify({"success": False, "message": f"Journal {journal_name} does not exist!", "data": doc})
+    if doc.get("journalText") == journal_text:
+        return jsonify({"success": False, "message": f"{name} text not changed!", "data": data})
     
-    return jsonify({"success": True, "message": f"Journal {journal_name} data fetched!", "data": doc})
+    collection.update_one({"journalName": name}, {"$set": {"journalName": name, "journalText": journal_text}})
+
+    return jsonify({"success": True, "message": f"Journal {name} updated!", "data": data})
+    
