@@ -38,7 +38,7 @@ function NewJournal() {
 
   return (
     <div className={`${styles.createContainer}`}>
-      <form onSubmit={handleSubmit}>
+      <form className={`${styles.creationForm}`} onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Name..."
@@ -47,9 +47,11 @@ function NewJournal() {
           className={`${styles.journalInput}`}
         />
         {journalName && (
-          <button className={`btn ${styles.createButton}`} type="submit">
-            Create Journal: "{journalName}"
-          </button>
+          <span>
+            <button className={`btn ${styles.createButton}`} type="submit">
+              Create Journal: "{journalName}"
+            </button>
+          </span>
         )}
 
         <TimedMessage visible={isVisible} text={message} />
