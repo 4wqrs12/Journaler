@@ -8,7 +8,6 @@
 [✅] Use flex styling display for /new frontend route
 [✅] Search box for searching journals in /edit frontend route, use flexbox to put search bar right of "Edit your journals here" h1 tag in /edit frontend route
 
-[] Add a button to toggle the navbar for mobile devices
 [] Make it very responsive
 [] Add auth and accounts
 [] Add status codes in backend
