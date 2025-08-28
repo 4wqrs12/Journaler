@@ -16,6 +16,7 @@
 [] Clear textbox after creating journal in /new frontend route
 [] In JournalModal.jsx, make a seperate component for close and save buttons
 [] Make locked journals and instead of journal buttons, and add ability to create notes for the journal, and in /edit frontend route make the journal buttons into cards with ability to modify name or description of journals and delete journals
+[] Add rich text support for when editing text of journals
 
 Use these hex codes for theming the site:
 Tan: #D2B48C

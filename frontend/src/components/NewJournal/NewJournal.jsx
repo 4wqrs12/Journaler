@@ -53,9 +53,8 @@ function NewJournal() {
             </button>
           </span>
         )}
-
-        <TimedMessage visible={isVisible} text={message} />
       </form>
+      <TimedMessage visible={isVisible} text={message} />
     </div>
   );
 }

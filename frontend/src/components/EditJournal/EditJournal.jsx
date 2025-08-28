@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import styles from "./EditJournalStyles.module.css";
 import Journal from "./Journal";
-import SearchBar from "./SearchBar";
 
 function EditJournal() {
   const [journals, setJournals] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  function handleSearch(e) {
+    setSearchTerm(e.target.value);
+  }
+
+  const filteredData = journals.filter((journal) => {
+    return journal.journalName.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   async function fetchJournals() {
     try {
@@ -12,6 +20,7 @@ function EditJournal() {
       const json = await res.json();
       if (json.success) {
         setJournals(json.data);
+        console.log(json);
       }
 
       if (!res.ok) {
@@ -30,12 +39,19 @@ function EditJournal() {
     <>
       <div className={`${styles.header}`}>
         <h1>Edit your journals here</h1>
-        <SearchBar />
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearch}
+          className={`${styles.searchBar}`}
+        />
       </div>
-      <div className={`${styles.editJournal}`}>
+
+      <div className={`${styles.journals}`}>
         {journals && journals.length > 0 ? (
-          journals.map((journal, index) => (
-            <Journal key={index} journalName={journal.journalName} />
+          filteredData.map((item, index) => (
+            <Journal key={index} journalName={item.journalName} />
           ))
         ) : (
           <p>No journals found. Create a new journal!</p>
