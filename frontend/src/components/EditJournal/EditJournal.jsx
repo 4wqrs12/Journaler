@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./EditJournalStyles.module.css";
 import Journal from "./Journal";
+import SearchBar from "./SearchBar";
 
 function EditJournal() {
   const [journals, setJournals] = useState([]);
@@ -27,7 +28,10 @@ function EditJournal() {
 
   return (
     <>
-      <h1>Edit your journals here</h1>
+      <div className={`${styles.header}`}>
+        <h1>Edit your journals here</h1>
+        <SearchBar />
+      </div>
       <div className={`${styles.editJournal}`}>
         {journals && journals.length > 0 ? (
           journals.map((journal, index) => (
