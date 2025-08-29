@@ -16,7 +16,9 @@ function EditJournal() {
 
   async function fetchJournals() {
     try {
-      const res = await fetch("http://localhost:5000/api/get-journals");
+      const res = await fetch(
+        `${import.meta.env.VITE_BASE_API}/api/get-journals`
+      );
       const json = await res.json();
       if (json.success) {
         setJournals(json.data);

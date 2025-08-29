@@ -11,7 +11,7 @@ function JournalModal({ journalName, displayFunction }) {
   async function fetchText() {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/get-text/${journalName}`
+        `${import.meta.env.VITE_BASE_API}/api/get-text/${journalName}`
       );
       if (!res.ok) {
         throw new Error(`Server error: ${res.status}`);
@@ -30,7 +30,7 @@ function JournalModal({ journalName, displayFunction }) {
   async function saveText() {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/save-text/${journalName}`,
+        `${import.meta.env.VITE_BASE_API}/api/save-text/${journalName}`,
         {
           method: "POST",
           headers: {

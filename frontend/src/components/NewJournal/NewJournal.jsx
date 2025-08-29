@@ -17,13 +17,16 @@ function NewJournal() {
       return;
     }
     try {
-      const res = await fetch("http://localhost:5000/api/create-journal", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ journalName }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BASE_API}/api/create-journal`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ journalName }),
+        }
+      );
       if (!res.ok) {
         throw new Error(`Server error: ${res.status}`);
       }
