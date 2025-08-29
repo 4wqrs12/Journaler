@@ -15,7 +15,7 @@ def create_journal():
             return jsonify({"success": False, "message": "No name given", "data": data})
         
         if collection.find_one({"journalName": journal_name}):
-            return jsonify({"success": False, "message": f"Another journal already has the name {journal_name}", "data": data})
+            return jsonify({"success": False, "message": f"Another journal already has the name \"{journal_name}\"", "data": data})
         
         collection.insert_one({"journalName": journal_name, "journalText": ""})
         return jsonify({"success": True, "message": f"Journal \"{journal_name}\" created!", "data": data})
