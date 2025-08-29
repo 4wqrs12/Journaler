@@ -1,5 +1,5 @@
 import styles from "./EditJournalStyles.module.css";
-import JournalModal from "../routes/JournalModal/JournalModal";
+import JournalModal from "../JournalModal/JournalModal";
 import { useState } from "react";
 
 function Journal({ journalName }) {
