@@ -7,8 +7,8 @@
 [✅] In /new route in frontend after clicking the button to create a new journal, add a self-dismissing message showing the "message" from the backend jsonify
 [✅] Use flex styling display for /new frontend route
 [✅] Search box for searching journals in /edit frontend route, use flexbox to put search bar right of "Edit your journals here" h1 tag in /edit frontend route
+[✅] Make it very responsive
 
-[] Make it very responsive
 [] Add auth and accounts
 [] Add status codes in backend
 [] Clear textbox after creating journal in /new frontend route

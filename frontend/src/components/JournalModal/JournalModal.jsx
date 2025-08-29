@@ -63,8 +63,6 @@ function JournalModal({ journalName, displayFunction }) {
           className={`${styles.journalTextArea}`}
           value={journalText}
           onChange={handleTextChange}
-          cols={200}
-          rows={50}
           placeholder="Start writing your journal here..."
         />
         <div className={`${styles.modalControls}`}>
