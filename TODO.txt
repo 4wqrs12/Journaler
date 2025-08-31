@@ -9,7 +9,8 @@
 [✅] Search box for searching journals in /edit frontend route, use flexbox to put search bar right of "Edit your journals here" h1 tag in /edit frontend route
 [✅] Make the page to edit journal text responsive
 
-[] Add auth and accounts
+[👷‍♂️] Add auth and accounts
+
 [] Add status codes in backend
 [] Clear textbox after creating journal in /new frontend route
 [] In JournalModal.jsx, make a seperate component for close and save buttons
