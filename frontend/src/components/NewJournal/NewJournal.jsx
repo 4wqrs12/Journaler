@@ -23,6 +23,7 @@ function NewJournal() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({ journalName }),
         }
@@ -40,25 +41,28 @@ function NewJournal() {
   }
 
   return (
-    <div className={`${styles.createContainer}`}>
-      <form className={`${styles.creationForm}`} onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Name..."
-          value={journalName}
-          onChange={handleNameChange}
-          className={`${styles.journalInput}`}
-        />
-        {journalName && (
-          <span>
-            <button className={`btn ${styles.createButton}`} type="submit">
-              Create Journal: "{journalName}"
-            </button>
-          </span>
-        )}
-      </form>
-      <TimedMessage visible={isVisible} text={message} />
-    </div>
+    <>
+      <h1>Create a new journal here!</h1>
+      <div className={`${styles.createContainer}`}>
+        <form className={`${styles.creationForm}`} onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Name..."
+            value={journalName}
+            onChange={handleNameChange}
+            className={`${styles.journalInput}`}
+          />
+          {journalName && (
+            <span>
+              <button className={`btn ${styles.createButton}`} type="submit">
+                Create Journal: "{journalName}"
+              </button>
+            </span>
+          )}
+        </form>
+        <TimedMessage visible={isVisible} text={message} />
+      </div>
+    </>
   );
 }
 

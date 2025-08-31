@@ -3,8 +3,8 @@ import NewJournalRoute from "./components/routes/NewJournalRoute/NewJournalRoute
 import EditJournalRoute from "./components/routes/EditJournalRoute";
 import Home from "./components/routes/Home";
 import { Routes, Route } from "react-router-dom";
-import Login from "./components/routes/Auth/Login/Login";
-import Signup from "./components/routes/Auth/Signup/Signup";
+import Login from "./components/routes/Auth/Login/LoginRoute";
+import Signup from "./components/routes/Auth/Signup/SignupRoute";
 
 function App() {
   return (

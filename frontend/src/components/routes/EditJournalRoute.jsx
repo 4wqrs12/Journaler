@@ -3,8 +3,11 @@ import EditJournal from "../EditJournal/EditJournal";
 function EditJournalRoute() {
   return (
     <div>
-      {/* <h1>Edit your journals here</h1> */}
-      <EditJournal />
+      {localStorage.getItem("token") ? (
+        <EditJournal />
+      ) : (
+        <p>Please login or signup to view your journals!</p>
+      )}
     </div>
   );
 }

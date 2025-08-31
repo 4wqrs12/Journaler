@@ -17,7 +17,14 @@ function EditJournal() {
   async function fetchJournals() {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_BASE_API}/api/get-journals`
+        `${import.meta.env.VITE_BASE_API}/api/get-journals`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       const json = await res.json();
       if (json.success) {

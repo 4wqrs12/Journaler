@@ -1,3 +1,4 @@
+import Logout from "../Logout/Logout";
 import styles from "./NavbarStyles.module.css";
 
 function Navbar() {
@@ -14,6 +15,9 @@ function Navbar() {
           <a className={`${styles.editJournal}`} href="/edit">
             Journals
           </a>
+        </li>
+        <li className={`${styles.account}`}>
+          <Logout />
         </li>
         <li className={`${styles.account}`}>
           <a href="/login">Login</a>
