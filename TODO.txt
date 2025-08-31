@@ -14,7 +14,7 @@
 [] Add status codes in backend
 [] Clear textbox after creating journal in /new frontend route
 [] In JournalModal.jsx, make a seperate component for close and save buttons
-[] Make locked journals and instead of journal buttons, and add ability to create notes for the journal, and in /edit frontend route make the journal buttons into cards with ability to modify name or description of journals and delete journals
+[] Make locked journals and instead of journal buttons, and add ability to create description for the journal, and in /edit frontend route make the journal buttons into cards with ability to modify name or description of journals and delete journals
 [] Add rich text support for when editing text of journals
 [] Add button to hide/view password in login and signup frontend routes
 [] Clear textboxes in /signup and /login frontend routes after clicking Login/Signup button
