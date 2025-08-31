@@ -31,3 +31,7 @@ li a:hover {
 .dropDown:hover .dropDownContent {
   display: block;
 }
+
+.account {
+  float: right;
+}

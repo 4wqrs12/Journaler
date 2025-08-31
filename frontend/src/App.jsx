@@ -3,6 +3,8 @@ import NewJournalRoute from "./components/routes/NewJournalRoute/NewJournalRoute
 import EditJournalRoute from "./components/routes/EditJournalRoute";
 import Home from "./components/routes/Home";
 import { Routes, Route } from "react-router-dom";
+import Login from "./components/routes/Auth/Login/Login";
+import Signup from "./components/routes/Auth/Signup/Signup";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<NewJournalRoute />} />
         <Route path="/edit" element={<EditJournalRoute />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );

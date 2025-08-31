@@ -15,6 +15,12 @@ function Navbar() {
             Journals
           </a>
         </li>
+        <li className={`${styles.account}`}>
+          <a href="/login">Login</a>
+        </li>
+        <li className={`${styles.account}`}>
+          <a href="/signup">Sign Up</a>
+        </li>
       </ul>
     </div>
   );
