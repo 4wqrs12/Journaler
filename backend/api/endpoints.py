@@ -1,7 +1,7 @@
 # views.py
 
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity, set_refresh_cookies
 from api.config import journal_collection, user_collection, bcrypt
 
 endpoints = Blueprint("endpoints", __name__)
@@ -32,7 +32,6 @@ def create_journal():
 def get_journals():
     try:
         user_id = get_jwt_identity()
-        print(user_id)
         if journal_collection.count_documents({}) == 0:
             return jsonify({"success": False, "message": "No journals found", "data": []})
         
@@ -44,9 +43,11 @@ def get_journals():
 
 
 @endpoints.route("/api/get-text/<string:journal_name>")
+@jwt_required()
 def get_text(journal_name):
     try:
-        doc = journal_collection.find_one({"journalName": journal_name}, {"_id": False})
+        user_id = get_jwt_identity()
+        doc = journal_collection.find_one({"journalName": journal_name, "belongsTo": user_id}, {"_id": False})
 
         if not doc:
             return jsonify({"success": False, "message": f"Journal {journal_name} does not exist!", "data": doc})
@@ -57,10 +58,12 @@ def get_text(journal_name):
 
 
 @endpoints.route("/api/save-text/<string:name>", methods=["POST"])
+@jwt_required()
 def save_text(name):
+    user_id = get_jwt_identity()
     data = request.get_json()
     journal_text = data.get("journalText")
-    doc = journal_collection.find_one({"journalName": name}, {"_id": False})
+    doc = journal_collection.find_one({"journalName": name, "belongsTo": user_id}, {"_id": False})
 
     if not journal_collection.find_one({"journalName": name}):
         return jsonify({"success": False, "message": f"Journal {name} was not found!", "data": data})
@@ -104,7 +107,23 @@ def login():
     
     if bcrypt.check_password_hash(doc["password"], password):
         access_token = create_access_token(identity=username)
-        return jsonify({"success": True, "message": f"User \"{username}\" authenticated!", "data": {"accessToken": access_token}})
+        refresh_token = create_refresh_token(identity=username)
+        # return jsonify({"success": True, "message": f"User \"{username}\" authenticated!", "data": {"accessToken": access_token}})
+        resp = jsonify({"success": True, "message": f"User \"{username}\" authenticated!", "data": {"accessToken": access_token}})
+        set_refresh_cookies(resp, refresh_token)
+        return resp
+        
     else:
         return jsonify({"success": False, "message": "Incorrect credentials", "data": data})
+
+
+@endpoints.route("/api/refresh", methods=["POST"])
+@jwt_required(refresh=True, locations=["cookies"])
+def refresh():
+    identity = get_jwt_identity()
+    access_token = create_access_token(identity=identity)
+    return jsonify({"success": True, "message": "New access token created!", "data": {"accessToken": access_token}})
+
+
+    
     

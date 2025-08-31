@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import styles from "./EditJournalStyles.module.css";
 import Journal from "./Journal";
+import { useAuth } from "../contexts/AuthContext";
 
 function EditJournal() {
   const [journals, setJournals] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const { token } = useAuth();
 
   function handleSearch(e) {
     setSearchTerm(e.target.value);
@@ -14,6 +16,10 @@ function EditJournal() {
     return journal.journalName.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
+  useEffect(() => {
+    console.log(token);
+  }, [token]);
+
   async function fetchJournals() {
     try {
       const res = await fetch(
@@ -22,11 +28,12 @@ function EditJournal() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       const json = await res.json();
+      console.log(json);
       if (json.success) {
         setJournals(json.data);
         console.log(json);

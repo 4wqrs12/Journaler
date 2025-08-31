@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useAuth } from "../../../contexts/AuthContext";
 import styles from "./LoginStyles.module.css";
 
 function Login() {
+  const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,23 +17,24 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    try {
-      const res = await fetch(`${import.meta.env.VITE_BASE_API}/api/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
-      if (!res.ok) {
-        throw new Error(`Server error: ${res.status}`);
-      }
-      const json = await res.json();
-      console.log(json);
-      json.success && localStorage.setItem("token", json.data.accessToken);
-    } catch (e) {
-      console.error(`Error: ${e}`);
-    }
+    // try {
+    //   const res = await fetch(`${import.meta.env.VITE_BASE_API}/api/login`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ username, password }),
+    //   });
+    //   if (!res.ok) {
+    //     throw new Error(`Server error: ${res.status}`);
+    //   }
+    //   const json = await res.json();
+    //   console.log(json);
+    //   json.success && localStorage.setItem("token", json.data.accessToken);
+    // } catch (e) {
+    //   console.error(`Error: ${e}`);
+    // }
+    login(username, password);
   }
 
   return (

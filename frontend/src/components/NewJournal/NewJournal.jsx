@@ -1,11 +1,13 @@
 import { useState } from "react";
 import styles from "./NewJournalStyles.module.css";
 import TimedMessage from "./TimedMessage";
+import { useAuth } from "../contexts/AuthContext";
 
 function NewJournal() {
   const [journalName, setJournalName] = useState("");
   const [message, setMessage] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const { token } = useAuth();
 
   function handleNameChange(e) {
     setJournalName(e.target.value);
@@ -23,7 +25,7 @@ function NewJournal() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ journalName }),
         }

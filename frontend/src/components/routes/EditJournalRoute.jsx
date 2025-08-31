@@ -1,9 +1,13 @@
 import EditJournal from "../EditJournal/EditJournal";
+import { useAuth } from "../contexts/AuthContext";
 
 function EditJournalRoute() {
+  const { token } = useAuth();
+
   return (
     <div>
-      {localStorage.getItem("token") ? (
+      <button onClick={() => console.log(token)}>log</button>
+      {token ? (
         <EditJournal />
       ) : (
         <p>Please login or signup to view your journals!</p>

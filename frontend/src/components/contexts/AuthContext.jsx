@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState("");
 
   async function login(username, password) {
     try {
@@ -20,6 +20,7 @@ export function AuthProvider({ children }) {
       }
       const json = await res.json();
       setToken(json.accessToken);
+      console.log(json);
     } catch (e) {
       console.error(`Error: ${e}`);
     }
