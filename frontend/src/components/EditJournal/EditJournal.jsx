@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./EditJournalStyles.module.css";
 import Journal from "./Journal";
+import { refresh } from "../../utils/refreshToken";
+import { jwtDecode } from "jwt-decode";
 
 function EditJournal() {
   const [journals, setJournals] = useState([]);
@@ -16,14 +18,24 @@ function EditJournal() {
 
   async function fetchJournals() {
     try {
+      if (
+        jwtDecode(localStorage.getItem("accessToken")).exp * 1000 <
+        Date.now() + 60 * 1000
+      ) {
+        await refresh();
+      }
+
       const res = await fetch(
         `${import.meta.env.VITE_BASE_API}/api/get-journals`,
         {
-          method: "GET",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
+          body: JSON.stringify({
+            refreshToken: localStorage.getItem("refreshToken"),
+          }),
         }
       );
       const json = await res.json();
@@ -36,6 +48,9 @@ function EditJournal() {
         throw new Error(`Server error: ${res.status}`);
       }
     } catch (e) {
+      if (e.message.includes("401")) {
+        await refresh();
+      }
       console.error(`Error: ${e}`);
     }
   }

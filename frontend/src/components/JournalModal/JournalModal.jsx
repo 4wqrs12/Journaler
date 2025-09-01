@@ -1,5 +1,7 @@
 import styles from "./JournalModalStyles.module.css";
 import { useEffect, useState } from "react";
+import { refresh } from "../../utils/refreshToken";
+import { jwtDecode } from "jwt-decode";
 
 function JournalModal({ journalName, displayFunction }) {
   const [journalText, setJournalText] = useState("");
@@ -10,8 +12,25 @@ function JournalModal({ journalName, displayFunction }) {
 
   async function fetchText() {
     try {
+      if (
+        jwtDecode(localStorage.getItem("accessToken")).exp * 1000 <
+        Date.now() + 60 * 1000
+      ) {
+        await refresh();
+      }
+
       const res = await fetch(
-        `${import.meta.env.VITE_BASE_API}/api/get-text/${journalName}`
+        `${import.meta.env.VITE_BASE_API}/api/get-text/${journalName}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          body: JSON.stringify({
+            refreshToken: localStorage.getItem("refreshToken"),
+          }),
+        }
       );
       if (!res.ok) {
         throw new Error(`Server error: ${res.status}`);
@@ -19,6 +38,9 @@ function JournalModal({ journalName, displayFunction }) {
       const json = await res.json();
       setJournalText(json.data.journalText);
     } catch (e) {
+      if (e.message.includes("401")) {
+        await refresh();
+      }
       console.error(`Error: ${e}`);
     }
   }
@@ -29,15 +51,24 @@ function JournalModal({ journalName, displayFunction }) {
 
   async function saveText() {
     try {
+      if (
+        jwtDecode(localStorage.getItem("accessToken")).exp * 1000 <
+        Date.now() + 60 * 1000
+      ) {
+        await refresh();
+      }
+
       const res = await fetch(
         `${import.meta.env.VITE_BASE_API}/api/save-text/${journalName}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
           body: JSON.stringify({
             journalText: journalText,
+            refreshToken: localStorage.getItem("refreshToken"),
           }),
         }
       );
@@ -47,6 +78,9 @@ function JournalModal({ journalName, displayFunction }) {
       const json = await res.json();
       console.log(`Save text: ${json.message}`);
     } catch (e) {
+      if (e.message.includes("401")) {
+        await refresh();
+      }
       console.error(`Error: ${e}`);
     }
   }
