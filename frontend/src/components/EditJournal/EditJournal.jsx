@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./EditJournalStyles.module.css";
 import Journal from "./Journal";
+import { apiFetch } from "../../utils/api";
 
 function EditJournal() {
   const [journals, setJournals] = useState([]);
@@ -16,15 +17,9 @@ function EditJournal() {
 
   async function fetchJournals() {
     try {
-      const res = await fetch(
+      const res = await apiFetch(
         `${import.meta.env.VITE_BASE_API}/api/get-journals`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+        { method: "GET" }
       );
       const json = await res.json();
       if (json.success) {

@@ -28,7 +28,12 @@ function Login() {
       }
       const json = await res.json();
       console.log(json);
-      json.success && localStorage.setItem("token", json.data.accessToken);
+      // json.success &&
+      //   localStorage.setItem("accessToken", json.data.accessToken);
+      if (json.success) {
+        localStorage.setItem("accessToken", json.data.accessToken);
+        localStorage.setItem("refreshToken", json.data.refreshToken);
+      }
     } catch (e) {
       console.error(`Error: ${e}`);
     }

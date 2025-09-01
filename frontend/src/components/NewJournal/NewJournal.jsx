@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiFetch } from "../../utils/api";
 import styles from "./NewJournalStyles.module.css";
 import TimedMessage from "./TimedMessage";
 
@@ -17,16 +18,9 @@ function NewJournal() {
       return;
     }
     try {
-      const res = await fetch(
+      const res = await apiFetch(
         `${import.meta.env.VITE_BASE_API}/api/create-journal`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({ journalName }),
-        }
+        { method: "POST" }
       );
       if (!res.ok) {
         throw new Error(`Server error: ${res.status}`);

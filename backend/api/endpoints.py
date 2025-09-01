@@ -1,18 +1,25 @@
 # views.py
 
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from api.config import journal_collection, user_collection, bcrypt
+from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity, get_jwt
+from api.config import journal_collection, user_collection, bcrypt, revoked_tokens_collection
 
 endpoints = Blueprint("endpoints", __name__)
+
+def is_token_revoked(jti):
+    return revoked_tokens_collection.find_one({"jti": jti}) is not None
 
 @endpoints.route("/api/create-journal", methods=["POST"])
 @jwt_required()
 def create_journal():
     try:
+        jti = get_jwt()["jti"]
         user_id = get_jwt_identity()
         data = request.get_json()
         journal_name = data.get("journalName")
+
+        if is_token_revoked(jti):
+            return jsonify({"success": False, "message": "Access expired", "data": jti})
 
         if not journal_name:
             return jsonify({"success": False, "message": "No name given", "data": data})
@@ -32,6 +39,10 @@ def create_journal():
 def get_journals():
     try:
         user_id = get_jwt_identity()
+        jti = get_jwt()["jti"]
+
+        if is_token_revoked(jti):
+            return jsonify({"success": False, "message": "Access expired", "data": jti})
         print(user_id)
         if journal_collection.count_documents({}) == 0:
             return jsonify({"success": False, "message": "No journals found", "data": []})
@@ -44,9 +55,15 @@ def get_journals():
 
 
 @endpoints.route("/api/get-text/<string:journal_name>")
+@jwt_required()
 def get_text(journal_name):
     try:
-        doc = journal_collection.find_one({"journalName": journal_name}, {"_id": False})
+        user_id = get_jwt_identity()
+        jti = get_jwt()["jti"]
+
+        if is_token_revoked(jti):
+            return jsonify({"success": False, "message": "Access expired", "data": jti})
+        doc = journal_collection.find_one({"journalName": journal_name, "belongsTo": user_id}, {"_id": False})
 
         if not doc:
             return jsonify({"success": False, "message": f"Journal {journal_name} does not exist!", "data": doc})
@@ -89,8 +106,9 @@ def signup():
 
     user_collection.insert_one({"username": username, "password": hashed_pass})
     access_token = create_access_token(identity=username)
+    refresh_token = create_refresh_token(identity=username)
 
-    return jsonify({"success": True, "message": f"User \"{username}\" created!", "data": {"accessToken": access_token}})
+    return jsonify({"success": True, "message": f"User \"{username}\" created!", "data": {"accessToken": access_token, "refreshToken": refresh_token}})
 
 
 @endpoints.route("/api/login", methods=["POST"])
@@ -104,7 +122,26 @@ def login():
     
     if bcrypt.check_password_hash(doc["password"], password):
         access_token = create_access_token(identity=username)
-        return jsonify({"success": True, "message": f"User \"{username}\" authenticated!", "data": {"accessToken": access_token}})
+        refresh_token = create_refresh_token(identity=username)
+        return jsonify({"success": True, "message": f"User \"{username}\" authenticated!", "data": {"accessToken": access_token, "refreshToken": refresh_token}})
     else:
         return jsonify({"success": False, "message": "Incorrect credentials", "data": data})
     
+
+@endpoints.route("/api/refresh")
+@jwt_required(refresh=True)
+def refresh():
+    identity = get_jwt_identity()
+    access_token = create_access_token(identity=identity)
+    return jsonify({"success": True, "message": "New token created!", "data": {"accessToken": access_token}})
+
+
+@endpoints.route("/api/revoke-token", methods=["POST"])
+@jwt_required(refresh=True)
+def revoke_token():
+    jti = get_jwt()["jti"]
+    try:
+        revoked_tokens_collection.insert_one({"jti": jti})
+        return jsonify({"success": True, "message": "Token revoked", "data": jti})
+    except Exception as e:
+        return jsonify({"success": False, "message": "An error has occured", "data": str(e)})

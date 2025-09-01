@@ -1,5 +1,6 @@
 import styles from "./JournalModalStyles.module.css";
 import { useEffect, useState } from "react";
+import { apiFetch } from "../../utils/api";
 
 function JournalModal({ journalName, displayFunction }) {
   const [journalText, setJournalText] = useState("");
@@ -10,8 +11,11 @@ function JournalModal({ journalName, displayFunction }) {
 
   async function fetchText() {
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BASE_API}/api/get-text/${journalName}`
+      const res = await apiFetch(
+        `${import.meta.env.VITE_BASE_API}/api/get-text`,
+        {
+          method: "GET",
+        }
       );
       if (!res.ok) {
         throw new Error(`Server error: ${res.status}`);
