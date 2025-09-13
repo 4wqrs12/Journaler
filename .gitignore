@@ -3,3 +3,14 @@ backend/.env
 backend/api/__pycache__
 frontend/node_modules
 frontend/.env
+.DS_Store
+._.DS_Store
+._TODO.txt
+backend/.DS_Store
+backend/._.DS_Store
+backend/._app.py
+frontend/._.DS_Store
+frontend/src/._.DS_Store
+frontend/src/components/._.DS_Store
+frontend/src/components/routes/._.DS_Store
+frontend/src/components/routes/Auth/._.DS_Store
