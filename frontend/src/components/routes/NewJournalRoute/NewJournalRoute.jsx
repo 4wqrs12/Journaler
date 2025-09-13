@@ -4,7 +4,7 @@ import styles from "./NewRouteStyles.module.css";
 function NewJournalRoute() {
   return (
     <div className={`${styles.newJournal}`}>
-      {localStorage.getItem("accessToken") ? (
+      {localStorage.getItem("token") ? (
         <NewJournal />
       ) : (
         <p>Please login or signup to create a journal!</p>

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import styles from "./NewJournalStyles.module.css";
 import TimedMessage from "./TimedMessage";
-import { refresh } from "../../utils/refreshToken";
-import { jwtDecode } from "jwt-decode";
 
 function NewJournal() {
   const [journalName, setJournalName] = useState("");
@@ -19,25 +17,15 @@ function NewJournal() {
       return;
     }
     try {
-      if (
-        jwtDecode(localStorage.getItem("accessToken")).exp * 1000 <
-        Date.now() + 60 * 1000
-      ) {
-        await refresh();
-      }
-
       const res = await fetch(
         `${import.meta.env.VITE_BASE_API}/api/create-journal`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify({
-            journalName: journalName,
-            refreshToken: localStorage.getItem("refreshToken"),
-          }),
+          body: JSON.stringify({ journalName }),
         }
       );
       if (!res.ok) {
@@ -48,9 +36,6 @@ function NewJournal() {
       setIsVisible(true);
       setTimeout(() => setIsVisible(false), 3000);
     } catch (e) {
-      if (e.message.includes("401")) {
-        await refresh();
-      }
       console.error(`Error: ${e}`);
     }
   }

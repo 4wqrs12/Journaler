@@ -28,10 +28,7 @@ function Signup() {
       }
       const json = await res.json();
       console.log(json);
-      if (json.success) {
-        localStorage.setItem("accessToken", json.data.accessToken);
-        localStorage.setItem("refreshToken", json.data.refreshToken);
-      }
+      json.success && localStorage.setItem("token", json.data.accessToken);
     } catch (e) {
       console.error(`Error: ${e}`);
     }
