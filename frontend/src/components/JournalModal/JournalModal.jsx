@@ -8,6 +8,8 @@ function JournalModal({ journalName, displayFunction }) {
     displayFunction(false);
   }
 
+  // commit test
+
   async function fetchText() {
     try {
       const res = await fetch(
