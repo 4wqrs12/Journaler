@@ -20,6 +20,7 @@
 [] Clear textboxes in /signup and /login frontend routes after clicking Login/Signup button
 [] Change website favicon
 [] Create seperate component for create journal button is /new frontend route
+[] Add ability to delete account
 
 Use these hex codes for theming the site:
 Tan: #D2B48C
