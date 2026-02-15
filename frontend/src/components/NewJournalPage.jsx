@@ -1,7 +1,10 @@
 function NewJournal() {
-    return ( <div>
-        <p>create a journal</p>
-    </div> );
+  return (
+    <div className="route-content">
+      <h1 className="route-title">New Journal</h1>
+      <p>create a journal</p>
+    </div>
+  );
 }
 
 export default NewJournal;

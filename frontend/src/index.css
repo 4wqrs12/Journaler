@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+* {
+  font-family: "Garamond";
+}
+
+.route-content {
+  @apply ml-2 pt-4;
+}
+
+.route-title {
+  @apply text-3xl font-bold mb-2;
+}
+
+.navbar-routes {
+  @apply p-4 hover:bg-[#5e200c] rounded-md;
+}
