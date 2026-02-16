@@ -1,5 +1,6 @@
-
-
+[] home page in / route
+[] jwt auth
+[] more options to journals in edit journals, like lock jounral, jounral desc, journal thumbnail
 
 
 
