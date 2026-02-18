@@ -1,6 +1,8 @@
-[] home page in / route
 [] jwt auth
+[] home page in / route
 [] more options to journals in edit journals, like lock jounral, jounral desc, journal thumbnail
+[] disappering result message after creating journal
+[] don't use alerts, use custom modal boxes in seperate component
 
 
 
