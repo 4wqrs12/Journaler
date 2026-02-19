@@ -2,14 +2,22 @@ from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from flask_cors import CORS
 from dotenv import load_dotenv
+from flask_jwt_extended import (JWTManager, create_access_token, jwt_required, get_jwt_identity)
+from flask_bcrypt import Bcrypt
 import os
 
 load_dotenv()
+bcrypt = Bcrypt()
+jwt_key = os.getenv("JWT_SECRET_KEY")
+
 
 client = MongoClient(os.getenv("MONGO_URI"))
 db = client["journaler"]
 journals = db["journals"]
+users = db["users"]
 app = Flask(__name__)
+app.config["JWT_SECRET_KEY"] = os.getenv(jwt_key)
+jwt = JWTManager(app)
 CORS(app)
 
 @app.route("/api/new-journal", methods=["GET","POST"])
